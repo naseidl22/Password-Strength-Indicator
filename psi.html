@@ -4,8 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Strength Indicator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="main-container">
     
+    <h1>Password Strength Indicator</h1>
+
+    <input type="password" id="password" placeholder="Enter your password">
+    
+    <p id = "plaintext"></p>
+
+    <br>
+
+    <meter id="strength-meter" min="0" max="100">0</meter>
+    
+    <p><span id = "strength-text">Strength: Very Weak</span></p>
+    <p><span id = "score">Entropy: 0 bits</span></p>
+    <p><span id = "time">Password Strength Score: </span></p>
+
+    <ul id="feedback-list"></ul>
+    </div>
+
+    <script src="psi.js"></script>
 </body>
 </html>

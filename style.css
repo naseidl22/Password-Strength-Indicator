@@ -1,0 +1,162 @@
+/* ------------------ Global Box Sizing ------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ------------------ Page ------------------ */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 60px auto;
+    max-width: 500px;
+    padding: 0 20px;
+    background: #1f2937; /* dark gray-blue background */
+    color: #f9fafb; /* light text */
+}
+
+/* ------------------ Main Container ------------------ */
+.main-container {
+    background-color: #111827; /* slightly lighter than body */
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+/* ------------------ Heading ------------------ */
+h1 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #f9fafb;
+}
+
+/* ------------------ Password Input ------------------ */
+#password {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #374151; /* dark border */
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
+#password:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* ------------------ Plaintext Preview ------------------ */
+#plaintext {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #9ca3af;
+    word-break: break-word;
+    font-style: italic;
+}
+
+/* ------------------ Meter ------------------ */
+meter {
+    width: 100%;
+    height: 16px;
+    margin: 12px 0;
+    border-radius: 10px;
+}
+
+meter::-webkit-meter-bar {
+    background: #374151; /* dark bar */
+    border-radius: 10px;
+}
+
+meter::-webkit-meter-optimum-value {
+    transition: background 0.3s ease, width 0.3s ease;
+    border-radius: 10px;
+}
+
+/* Meter Colors (bright for dark background) */
+meter.very-weak::-webkit-meter-optimum-value { background: #ef4444; }
+meter.weak::-webkit-meter-optimum-value { background: #f97316; }
+meter.fair::-webkit-meter-optimum-value { background: #facc15; color: #111827; }
+meter.strong::-webkit-meter-optimum-value { background: #22c55e; }
+meter.very-strong::-webkit-meter-optimum-value { background: #16a34a; }
+
+/* ------------------ Strength Text Badge ------------------ */
+#strength-text {
+    font-weight: 600;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-size: 14px;
+}
+
+/* Strength text colors (bright against dark bg) */
+#strength-text.very-weak { background-color: #ef4444; color: #f9fafb; }
+#strength-text.weak { background-color: #f97316; color: #f9fafb; }
+#strength-text.fair { background-color: #facc15; color: #111827; }
+#strength-text.strong { background-color: #22c55e; color: #f9fafb; }
+#strength-text.very-strong { background-color: #16a34a; color: #f9fafb; }
+
+/* ------------------ Entropy & Score Info Cards ------------------ */
+#score, #time {
+    display: inline-block;
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 8px;
+    background-color: #1f2937;
+    color: #f9fafb;
+    font-weight: 500;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    width: 100%;
+}
+
+/* Colored left borders for accent */
+#score { border-left: 4px solid #3b82f6; }
+#time { border-left: 4px solid #8b5cf6; }
+
+/* ------------------ Info text ------------------ */
+p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+/* ------------------ Feedback List ------------------ */
+#feedback-list {
+    margin-top: 15px;
+    padding-left: 0;
+    list-style: none;
+}
+
+#feedback-list li {
+    margin-bottom: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transition: background 0.3s ease, border-left-color 0.3s ease;
+    border-left: 4px solid #f97316; /* default warning */
+    color: #f9fafb;
+}
+
+/* Positive feedback items */
+#feedback-list li.good {
+    background-color: #064e3b; /* dark green card */
+    border-left-color: #22c55e;
+    color: #ecfdf5;
+}
+
+/* Icons for feedback */
+#feedback-list li::before {
+    content: "⚠"; /* warning icon */
+    font-weight: bold;
+}
