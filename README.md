@@ -15,4 +15,12 @@ The tool evaluates passwords by:
 
 Download zip and run as live server in web browser. 
 
+Add .txt files to words directory to add new "bad character" (strings that get penalized) strings.
+
+The .txt files should be formatted the same as the repeatedchars.txt
+
+Common passwords/words lists in this format can be found on GitHub or other sites online
+
+Edit files.json to match your directory.
+
 

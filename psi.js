@@ -73,35 +73,22 @@ document.getElementById('password').addEventListener('input', function() {
     }
 });
 
-// Get common words from files
-window.onload = function() {
-    this.fetch("1000passwords.txt")
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
+// Get common words from files directory
+window.onload = async function() {
+    const fileList = await fetch('files.json').then(r => r.json());
 
-            for (line of lines) {
-                if(line.length > 2){
-                    excludedWords.push(line.trim());
-                }
+    for (const filename of fileList) {
+        const data = await fetch(`words/${filename}`).then(r => r.text());
+        const lines = data.split('\n');
+
+        for (const line of lines) {
+            if (line.trim().length > 2) {
+                excludedWords.push(line.trim());
             }
-        });
+        }
+    }
 
-    this.fetch("englishwords.txt")
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-
-            for (line of lines) {
-                if(line.length > 3){
-                    excludedWords.push(line.trim());
-                }
-            }
-        });
-    
-    //console.log(excludedWords);
 }
-
 
 function getPasswordEntropy(password){
     
