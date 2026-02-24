@@ -10,6 +10,30 @@ const feedbackList = document.getElementById('feedback-list');
 
 let excludedWords = [];
 
+const reverseSubstitutions = {
+    '@': 'a',
+    '4': 'a',
+
+    '8': 'b',
+
+    '3': 'e',
+
+    '6': 'g',
+    '9': 'g',
+
+    '1': 'i',
+    'l': 'i',
+
+    '0': 'o',
+
+    '5': 's',
+    '$': 's',
+
+    '7': 't',
+
+    '2': 'z'
+};
+
 // Set up event listener for password input
 document.getElementById('password').addEventListener('input', function() {
 
@@ -92,6 +116,30 @@ window.onload = async function() {
         }
     }
 
+    //mungeWords(excludedWords);
+
+    //console.log(excludedWords);
+
+}
+
+
+function mungePassword(password){
+
+    passwords = [password];
+
+    let munged =  "";
+
+    for (let i = 0; i < password.length; i++) {
+        let char = password[i];
+        if (reverseSubstitutions[char]) {
+           munged += reverseSubstitutions[char];
+        }
+        else{
+            munged += char;
+        }
+    }
+    passwords.push(munged);
+    return passwords;
 }
 
 function getPasswordEntropy(password){
@@ -123,7 +171,9 @@ function getPasswordEntropy(password){
         feedback.push("Add special characters");
 
     // Check for common words and calculate good characters
-    let {flags, matchedWords} = cleanPassword(password);
+
+    let mungedPasswords = mungePassword(password);
+    let {flags, matchedWords, completeMatch} = cleanPassword(mungedPasswords);
     console.log(matchedWords);
 
     // Penalize for characters in word list
@@ -139,7 +189,7 @@ function getPasswordEntropy(password){
     }
 
     // If entire password is a common word, score 0, combination of words is penalized but scores
-    if (excludedWords.includes(password.toLowerCase())) { 
+    if (completeMatch) { 
         goodCharacters = 0;
     }
 
@@ -158,31 +208,45 @@ function getPasswordEntropy(password){
 }
 
 // Search for common words and set flags
-function cleanPassword(password){
-    let cleanedPassword = password.toLowerCase();
+function cleanPassword(passwords){
 
-    let flags = [];
+
+    let length = passwords[0].length;
+    let flags = new Array(length).fill(1);
     let matchedWords = [];
-    for (let i = 0; i < cleanedPassword.length; i++) {
-        flags.push(1);
-    }
 
-    for (let word of excludedWords) {
-        let index = cleanedPassword.indexOf(word);
+    let completeMatch = false;
 
-        if(index !== -1){
-            
-            // Add matched word
-            matchedWords.push(word);
-            
-            // Set flags
-            for (let i = 0 ; i < word.length; i++) {
-                flags[index + i] = 0;
+    let excludedWordsSet = new Set(excludedWords);
+
+    for(let i = 0; i < passwords.length; i++){
+        let cleanedPassword  = passwords[i].toLowerCase();
+
+
+        for (let word of excludedWords) {
+            let index = cleanedPassword.indexOf(word);
+
+            if(index !== -1){
+
+                // Add matched word
+                if (!matchedWords.includes(word))
+                    matchedWords.push(word);
+
+                // Set flags
+                for (let i = 0 ; i < word.length; i++) {
+                    flags[index + i] = 0;
+                }
+
             }
         }
+
+        if (excludedWordsSet.has(cleanedPassword)) {
+            completeMatch = true;
+        }
+
     }
 
-    return {flags, matchedWords};
+    return {flags, matchedWords, completeMatch};
 }
 
 // Calculate time to crack in years based on entropy
