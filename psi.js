@@ -25,6 +25,7 @@ document.getElementById('password').addEventListener('input', function() {
         plaintext.textContent = "";
         scoreElement.textContent = `Entropy: 0 bits`;
         timeElement.textContent = `Password Strength Score: 0`;
+        strengthMeter.classList.add("very-weak");
 
         return;
     }
