@@ -155,6 +155,13 @@ p {
     color: #ecfdf5;
 }
 
+/* Positive feedback items */
+#feedback-list li.bad {
+    background-color: #7f1d1d; /* dark red card */
+    border-left-color: #ef4444;
+    color: #fef2f2;
+}
+
 /* Icons for feedback */
 #feedback-list li::before {
     content: "⚠"; /* warning icon */

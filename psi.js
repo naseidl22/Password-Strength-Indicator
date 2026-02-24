@@ -70,6 +70,9 @@ document.getElementById('password').addEventListener('input', function() {
     for (let item of feedback) {
         const li = document.createElement("li");
         li.textContent = item;
+        if(li.textContent.startsWith("Consider removing common words")){
+            li.classList.add("bad");
+        }
         feedbackList.appendChild(li);
     }
 });
