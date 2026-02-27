@@ -23,4 +23,3 @@ Common passwords/words lists in this format can be found on GitHub or other site
 
 Edit files.json to match your directory.
 
-
